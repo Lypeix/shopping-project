@@ -4,3 +4,8 @@ DAY 1 PROGRESS (15.06.2026):
 - Added products and list
 - Added user_choice checking for valid choices
 - Added roadmap and code plan
+
+DAY 2 PROGRESS (16.06.2026):
+- Changed hardcoded elements with fully dynamic and automatic ones
+- Turned products list into dictionary
+- Added if __name__ == __"main"__ for import safety
