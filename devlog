@@ -10,4 +10,5 @@ DAY 2 PROGRESS (16.06.2026):
 - Turned products list into dictionary
 - Added if __name__ == __"main"__ and main() for import safety
 - Added cart state as a dictionary
-- Started working on add_to_cart() func
+- Added add_to_cart() func
+- Added cart display
