@@ -3,7 +3,7 @@ Shopping project!
 This program is supposed to emualate a basic shopping sequence
 
 ROADMAP:
-- [ ] Display product catalog with numbers, prices, and stock (using `enumerate`)
+- [x] Display product catalog with numbers, prices, and stock (using `enumerate`)
 - [ ] Add items to cart (with quantity check)
 - [ ] Remove items from cart by line number (using `enumerate`)
 - [ ] Show cart contents with subtotals (using `zip`)
