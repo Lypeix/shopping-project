@@ -49,15 +49,17 @@ def add_to_cart():
         product_key = product_keys[int(choice_num) - 1] # converts choice string to integer and subtracts 1 so that guy's choice reflects index
         chosen_product = products[product_key]
         
-        cart['items'].append(chosen_product['name'])
+        cart['items'].append(product_key)
         cart['item_count'] += 1
-        cart['total_price'] += int(chosen_product['price'])
+        cart['total_price'] += chosen_product['price']
 
+
+        item_names = [products[key]['name'] for key in cart['items']]
         print(f"You have selected {chosen_product['name']} for {chosen_product['price']} {chosen_product['currency']} ")
         print(f'-=-!CART STATUS!-=-')
-        print(f"{cart['items']}")
-        print(f"{cart['item_count']}") 
-        print(f"{cart['total_price']}")
+        print(f"Items: {', '.join(item_names)}")
+        print(f"Item count: {cart['item_count']}") 
+        print(f"Total price: {cart['total_price']}")
 
 
         answer = user_choice('Would you like to choose another item? (Yes/No) \n> ',
@@ -68,6 +70,8 @@ def add_to_cart():
         if answer == 'yes':
             continue
         else:
+            print('Thank you for shopping!')            
+
             return True
 
         
