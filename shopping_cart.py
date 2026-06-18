@@ -12,7 +12,9 @@ def user_choice(prompt, valid_choices):
             print(f"Invalid choice, please choose from: {', ' .join(valid_choices)} ")
 
 def initialization():
-    
+    """Creates user's account data including username and currency"""
+
+
     user_name = input("Welcome! How would you like to name your account?\n> ")
 
     user_currency = user_choice(f"Hello {user_name}! Please pick your currency: "
