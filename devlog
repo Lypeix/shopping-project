@@ -13,3 +13,11 @@ DAY 2 PROGRESS (16.06.2026):
 - Added cart state as a dictionary
 - Added add_to_cart() func
 - Added cart display
+
+DAY 3 PROGRESS (18.06.2026):
+- Split add_to_cart() into cart_display() and add_to_cart()
+- Added user_account state
+- Created initialization phase featuring currency and username choices
+- Added dynamic currency
+- Updated Cart Status and dictionaries to feature dynamic currency
+- Added documentation below functions
