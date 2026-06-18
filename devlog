@@ -21,3 +21,5 @@ DAY 3 PROGRESS (18.06.2026):
 - Added dynamic currency
 - Updated Cart Status and dictionaries to feature dynamic currency
 - Added documentation below functions
+- Added quantity_get() func
+- Updated program to include item quantities
