@@ -1,6 +1,6 @@
 #SHOPPING PROJECT
 
-# INITIALIZATION
+# INITIALIZATION PHASE
 
 def user_choice(prompt, valid_choices):
     """Loops until user selects a valid choice"""
@@ -49,13 +49,12 @@ products = {
     }
 
 cart = {
-    'items': [],
+    'items': {},
     'item_count': 0,
     'total_price': 0
 }
 
 # CART FUNCTIONS
-
 
 def display_cart():
     """Displays catalog"""
@@ -73,6 +72,29 @@ def display_cart():
 
     return '\n'.join(prompt_lines), product_keys
 
+def quantity_get(product_key):
+    """Let's user choose the amount of product units he wants to get, eg. x8 cola"""
+    product = products[product_key]
+    max_qty = product['stock']
+
+    while True:
+        try:
+            qty = int(input(f"How many units would you like to purchase?\nIn Stock: {max_qty}\n> "))
+                        
+            if qty < 1:
+                print("You must select at least one unit!")
+
+            elif qty > max_qty:
+                print(f"There are only {max_qty} units in stock!") 
+            
+            else:
+                return qty
+
+        except ValueError: 
+            print("Invalid number! Please enter a valid value.")
+
+
+
 def add_to_cart():
     """Lets user pick products"""
 
@@ -87,16 +109,19 @@ def add_to_cart():
         product_key = product_keys[int(choice_num) - 1] # converts choice string to integer and subtracts 1 so that guy's choice reflects index
         chosen_product = products[product_key]
         
+        qty = quantity_get(product_key)
 
-        cart['items'].append(product_key)
-        cart['item_count'] += 1
-        cart['total_price'] += chosen_product['price']
+        cart['items'][product_key] = cart['items'].get(product_key, 0) + qty
+        cart['item_count'] += qty
+        cart['total_price'] += chosen_product['price'] * qty
 
+        # Stock update
+        products
 
-        item_names = [products[key]['name'] for key in cart['items']]
+        item_display = [f"x{qty} {products[key]['name']}" for key, qty in cart['items'].items()]
         print(f"You have selected {chosen_product['name']} for {chosen_product['price']} {chosen_product['currency']} ")
         print(f'-=-!CART STATUS!-=-')
-        print(f"Items: {', '.join(item_names)}")
+        print(f"Items: {', '.join(item_display)}")
         print(f"Item count: {cart['item_count']}") 
         print(f"Total price: {cart['total_price']} {user_account['currency_display']}")
 
