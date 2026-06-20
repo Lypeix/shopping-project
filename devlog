@@ -23,3 +23,6 @@ DAY 3 PROGRESS (18.06.2026):
 - Added documentation below functions
 - Added quantity_get() func
 - Updated program to include item quantities
+
+DAY 4 PROGRESS (20.06.2026):
+- Product stock is now being properly updated based on user's choices
