@@ -29,7 +29,8 @@ def initialization():
     user_account = {
     'name': user_name,
     'currency': user_currency,
-    'currency_display': user_currency.upper()
+    'currency_display': user_currency.upper(),
+    'balance': 10000
     }
 
 
@@ -128,19 +129,36 @@ def add_to_cart():
         print(f"Total price: {cart['total_price']} {user_account['currency_display']}")
 
 
-        answer = user_choice('Would you like to choose another item? (Yes/No) \n> ',
-                        ['yes', 'no']
+        answer = user_choice('What would you like to do now?'
+                            '\n1. Add another item to the cart'
+                            '\n2. Remove items from the cart'
+                            '\n3. Purchase options'
+                            '\n4. Exit'
+                            '\n> ',
+                        ['1', '2', '3', '4']
                         )
 
 
-        if answer == 'yes':
+        if answer == '1':
             continue
+        
+        elif answer == '2':
+            item_removal()
+        
+        elif answer == '3':
+            user_account['balance'] -= cart['total_price']
+            print('Your purchase has been finalized! Thank you for shopping')
+
         else:
             print('Thank you for shopping!')            
 
             return True
 
         
+def item_removal():
+    """Let's user remove items froms the cart"""
+
+
 def main():
 
     display_cart()
