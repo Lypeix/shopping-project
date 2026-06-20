@@ -26,3 +26,6 @@ DAY 3 PROGRESS (18.06.2026):
 
 DAY 4 PROGRESS (20.06.2026):
 - Product stock is now being properly updated based on user's choices
+- Updated cart menu to include ability of purchase and item removal on top of the existing ability of adding more items and exitting the cart
+- Added cash balance to user_account state
+- 
