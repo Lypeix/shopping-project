@@ -54,6 +54,7 @@ cart = {
     'total_price': 0
 }
 
+
 # CART FUNCTIONS
 
 def display_cart():
@@ -114,9 +115,10 @@ def add_to_cart():
         cart['items'][product_key] = cart['items'].get(product_key, 0) + qty
         cart['item_count'] += qty
         cart['total_price'] += chosen_product['price'] * qty
+        chosen_product['stock'] -= qty
+
 
         # Stock update
-        products
 
         item_display = [f"x{qty} {products[key]['name']}" for key, qty in cart['items'].items()]
         print(f"You have selected {chosen_product['name']} for {chosen_product['price']} {chosen_product['currency']} ")
