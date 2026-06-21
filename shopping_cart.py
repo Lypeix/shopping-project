@@ -128,7 +128,7 @@ def cart_update():
 
         item_display = [f"x{qty} {products[key]['name']}" for key, qty in cart['items'].items()]
         
-        print(f'-=-!CART STATUS!-=-')
+        print(f'\n-=-!CART STATUS!-=-')
         print(f"Items: {', '.join(item_display)}")
         print(f"Item count: {cart['item_count']}") 
         print(f"Total price: {cart['total_price']} {user_account['currency_display']}")
@@ -167,22 +167,28 @@ def item_removal(): # NOT FINISHED
     """Let's user remove items froms the cart"""
 
     if not cart['items']:
-        print('Your cart is empty!')
+        print('The cart is empty!')
         return
 
     cart_items = list(cart['items'].items())
         
     prompt_lines = ['Which product would you like to remove?']
     
-    for idx, (key, qty) in enumerate(cart_items, start=1): # 
-
+    for idx, (key, qty) in enumerate(cart_items, start=1): 
         product = products[key]
-        qty = cart['items'][key]
+        prompt_lines.append(f"- {idx}. {product['name']} x{qty} - {product['price']} {product['currency']}")
+        prompt_lines.append('> ')
 
-        print(f'- {idx}. {key}')
+        valid_choices = [str(i) for i in range(1, len(cart_items) + 1)]
 
+        choice_num = user_choice(prompt, valid_choices)
 
+    product_key, current_qty = cart_items[int(choice_num) - 1]
+    product = products[product_key]
 
+    cart['items'][product_key] = current_qty - 1
+    cart['item_count'] -= 1
+    cart['total_price'] -= product['price']
 
     item_count = user_choice(f'Which item would you like to remove?',
             ['cola', 'suit']
