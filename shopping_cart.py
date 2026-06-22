@@ -123,7 +123,7 @@ def add_to_cart():
 
         cart_update()
         action_loop()
-        return
+        
 
 def cart_update():
 
@@ -200,7 +200,7 @@ def item_removal():
 
     while True:
         try:
-            remove_qty = int(input(f"How many {product_key} units would you like to remove?\nUnits in cart: {current_qty} \n> "))
+            remove_qty = int(input(f"How many {product['name']} units would you like to remove?\nUnits in cart: {current_qty} \n> "))
             
             if remove_qty < 1:
                 print('You must select at least one unit!')
@@ -223,8 +223,6 @@ def item_removal():
     cart_update()
 
 def main():
-
-    display_catalog()
     add_to_cart()
 
 if __name__ == "__main__":
