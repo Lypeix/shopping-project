@@ -163,7 +163,7 @@ def action_loop():
             return True
 
         
-def item_removal(): # NOT FINISHED
+def item_removal(): 
     """Let's user remove items froms the cart"""
 
     if not cart['items']:
@@ -174,14 +174,15 @@ def item_removal(): # NOT FINISHED
         
     prompt_lines = ['Which product would you like to remove?']
     
-    for idx, (key, qty) in enumerate(cart_items, start=1): 
+    for idx, (key, qty) in enumerate(cart_items, start=1):
         product = products[key]
-        prompt_lines.append(f"- {idx}. {product['name']} x{qty} - {product['price']} {product['currency']}")
-        prompt_lines.append('> ')
+        prompt_lines.append(f"{idx}. x{qty} {product['name']} - {product['price']} {product['currency']}")
+    prompt_lines.append("> ")
+    prompt = "\n".join(prompt_lines)
 
-        valid_choices = [str(i) for i in range(1, len(cart_items) + 1)]
+    valid_choices = [str(i) for i in range(1, len(cart_items) + 1)]
 
-        choice_num = user_choice(prompt, valid_choices)
+    choice_num = user_choice(prompt, valid_choices)
 
     product_key, current_qty = cart_items[int(choice_num) - 1]
     product = products[product_key]
@@ -190,10 +191,12 @@ def item_removal(): # NOT FINISHED
     cart['item_count'] -= 1
     cart['total_price'] -= product['price']
 
-    item_count = user_choice(f'Which item would you like to remove?',
-            ['cola', 'suit']
-                )
 
+    if cart['items'] == 0:
+        del cart['items'][product_key]
+        print(f'Product removed!')
+    else:
+        print(f'Removed 1x {product['name']} from the cart! {cart['items'][product_key]} left')
 
 
 def main():
