@@ -6,7 +6,7 @@ ROADMAP:
 - [x] Display product catalog with numbers, prices, and stock 
 - [x] Add items to cart (with quantity check)
 - [x] Remove items from cart by line number
-- [ ] Show cart contents with subtotals
+- [x] Show cart contents with subtotals
 - [ ] Checkout with tax calculation
 - [ ] Discount logic 
 - [ ] Save/load cart with JSON
