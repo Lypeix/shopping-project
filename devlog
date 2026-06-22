@@ -38,3 +38,4 @@ DAY 6 PROGRESS (21.06.2026):
 - Finished working on and implementing item_removal()
 - Renamed cart_display() to display_catalog() for cleaner naming
 - Added display indiviudal prices for items in cart_update()
+- Revised the code
