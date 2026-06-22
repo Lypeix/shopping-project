@@ -58,7 +58,7 @@ cart = {
 
 # CART FUNCTIONS
 
-def display_cart():
+def display_catalog():
     """Displays catalog"""
     prompt_lines = ['Choose a product by typing in corresponding number: ']
 
@@ -73,6 +73,7 @@ def display_cart():
     prompt_lines.append("> ")
 
     return '\n'.join(prompt_lines), product_keys
+
 
 def quantity_get(product_key):
     """Let's user choose the amount of product units he wants to get, eg. x8 cola"""
@@ -102,7 +103,7 @@ def add_to_cart():
 
     while True:    
 
-        prompt, product_keys = display_cart()
+        prompt, product_keys = display_catalog()
 
         valid_choices = [str(i) for i in range(1, len(product_keys) + 1)]
 
@@ -126,12 +127,22 @@ def add_to_cart():
 
 def cart_update():
 
-        item_display = [f"x{qty} {products[key]['name']}" for key, qty in cart['items'].items()]
+    item_display = [f"x{qty} {products[key]['name']}" for key, qty in cart['items'].items()]
         
-        print(f'\n-=-!CART STATUS!-=-')
-        print(f"Items: {', '.join(item_display)}")
-        print(f"Item count: {cart['item_count']}") 
-        print(f"Total price: {cart['total_price']} {user_account['currency_display']}")
+    print(f'\n-=-!CART STATUS!-=-')
+    print(f"Items: {', '.join(item_display)}")
+    print(f"Item count: {cart['item_count']}") 
+
+    print('Individual prices:')
+    subtotal_sum = 0
+    for key, qty in cart['items'].items():
+        product = products[key]
+        subtotal = qty * product['price']
+        subtotal_sum += subtotal
+        print(f'{product['name']} = {subtotal} {user_account['currency_display']}')
+     
+    print(f"Total price: {cart['total_price']} {user_account['currency_display']}")
+
 
 def action_loop():
 
@@ -213,7 +224,7 @@ def item_removal():
 
 def main():
 
-    display_cart()
+    display_catalog()
     add_to_cart()
 
 if __name__ == "__main__":
