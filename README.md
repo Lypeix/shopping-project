@@ -5,7 +5,7 @@ This program is supposed to emualate a basic shopping sequence
 ROADMAP:
 - [x] Display product catalog with numbers, prices, and stock 
 - [x] Add items to cart (with quantity check)
-- [ ] Remove items from cart by line number
+- [x] Remove items from cart by line number
 - [ ] Show cart contents with subtotals
 - [ ] Checkout with tax calculation
 - [ ] Discount logic 
