@@ -34,7 +34,7 @@ DAY 5 PROGRESS (21.06.2026):
 - Split add_to_cart() into add_to_cart(), cart_update() and action_loop()
 - Added dynamic list and choices to item_removal(), stopped early due to mental fog
 
-DAY 6 PROGRESS (21.06.2026):
+DAY 6 PROGRESS (22.06.2026):
 - Finished working on and implementing item_removal(), and fixed the naming within it
 - Renamed cart_display() to display_catalog() for cleaner naming
 - Added display indiviudal prices for items in cart_update()
