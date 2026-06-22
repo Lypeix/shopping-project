@@ -139,7 +139,7 @@ def cart_update():
         product = products[key]
         subtotal = qty * product['price']
         subtotal_sum += subtotal
-        print(f'{product['name']} = {subtotal} {user_account['currency_display']}')
+        print(f"{product['name']} = {subtotal} {user_account['currency_display']}")
      
     print(f"Total price: {cart['total_price']} {user_account['currency_display']}")
 
@@ -213,9 +213,10 @@ def item_removal():
         except ValueError:
             print(f'Please enter a valid number')
 
-    cart['items'][product_key] = current_qty - remove_qty
+    cart['items'][product_key] -= remove_qty
     cart['item_count'] -= remove_qty
     cart['total_price'] -= product['price'] * remove_qty
+    product['stock'] += remove_qty
 
     if cart['items'][product_key] == 0:
         del cart['items'][product_key]
