@@ -100,29 +100,27 @@ def quantity_get(product_key):
 
 def add_to_cart():
     """Lets user pick products"""
+   
 
-    while True:    
+    prompt, product_keys = display_catalog()
 
-        prompt, product_keys = display_catalog()
+    valid_choices = [str(i) for i in range(1, len(product_keys) + 1)]
 
-        valid_choices = [str(i) for i in range(1, len(product_keys) + 1)]
+    choice_num = user_choice(prompt, valid_choices)
 
-        choice_num = user_choice(prompt, valid_choices)
-
-        product_key = product_keys[int(choice_num) - 1] # converts choice string to integer and subtracts 1 so that guy's choice reflects index
-        chosen_product = products[product_key]
+    product_key = product_keys[int(choice_num) - 1] # converts choice string to integer and subtracts 1 so that guy's choice reflects index
+    chosen_product = products[product_key]
         
-        qty = quantity_get(product_key)
+    qty = quantity_get(product_key)
 
-        cart['items'][product_key] = cart['items'].get(product_key, 0) + qty
-        cart['item_count'] += qty
-        cart['total_price'] += chosen_product['price'] * qty
-        chosen_product['stock'] -= qty
+    cart['items'][product_key] = cart['items'].get(product_key, 0) + qty
+    cart['item_count'] += qty
+    cart['total_price'] += chosen_product['price'] * qty
+    chosen_product['stock'] -= qty
         
-        print(f"You have selected {chosen_product['name']} for {chosen_product['price']} {chosen_product['currency']} ")
+    print(f"You have selected {chosen_product['name']} for {chosen_product['price']} {chosen_product['currency']} ")
 
-        cart_update()
-        action_loop()
+    cart_update()
         
 
 def cart_update():
@@ -144,36 +142,6 @@ def cart_update():
     print(f"Total price: {cart['total_price']} {user_account['currency_display']}")
 
 
-def action_loop():
-
-    while True:
-        answer = user_choice('What would you like to do now?'
-                            '\n1. Add another item to the cart'
-                            '\n2. Remove items from the cart'
-                            '\n3. Purchase options'
-                            '\n4. Exit'
-                            '\n> ',
-                        ['1', '2', '3', '4']
-                        )
-
-
-        if answer == '1':
-            add_to_cart()
-            return
-
-        elif answer == '2':
-            item_removal()
-        
-        elif answer == '3':
-            user_account['balance'] -= cart['total_price']
-            print('Your purchase has been finalized! Thank you for shopping')
-
-        else:
-            print('Thank you for shopping!')            
-
-            return True
-
-        
 def item_removal(): 
     """Let's user remove items froms the cart"""
 
@@ -223,8 +191,38 @@ def item_removal():
 
     cart_update()
 
+
+def action_loop():
+
+    while True:
+        answer = user_choice('What would you like to do now?'
+                            '\n1. Add items to the cart'
+                            '\n2. Remove items from the cart'
+                            '\n3. Purchase options' # UNFINISHED
+                            '\n4. Exit'
+                            '\n> ',
+                        ['1', '2', '3', '4']
+                        )
+
+
+        if answer == '1':
+            add_to_cart()
+
+        elif answer == '2':
+            item_removal()
+        
+        elif answer == '3':
+            user_account['balance'] -= cart['total_price']
+            print('Your purchase has been finalized! Thank you for shopping')
+
+        elif answer == '4':
+            print('Thank you for shopping!')            
+            break
+
+
 def main():
     add_to_cart()
+    action_loop()
 
 if __name__ == "__main__":
     main()
