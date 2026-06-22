@@ -180,24 +180,36 @@ def item_removal():
     prompt_lines.append("> ")
     prompt = "\n".join(prompt_lines)
 
-    valid_choices = [str(i) for i in range(1, len(cart_items) + 1)]
+    valid_choices = [str(i) for i in range(1, len(cart['items']) + 1)]
 
     choice_num = user_choice(prompt, valid_choices)
 
     product_key, current_qty = cart_items[int(choice_num) - 1]
     product = products[product_key]
 
-    cart['items'][product_key] = current_qty - 1
-    cart['item_count'] -= 1
-    cart['total_price'] -= product['price']
+    while True:
+        try:
+            remove_qty = int(input(f"How many {product_key} units would you like to remove?\nUnits in cart: {current_qty} \n> "))
+            
+            if remove_qty < 1:
+                print('You must select at least one unit!')
+            elif remove_qty > current_qty:
+                print('The provided number exceeds amount of units in the cart.')
+            else:
+                print(f'Successfuly removed {remove_qty} units from the cart!')
+                break
 
+        except ValueError:
+            print(f'Please enter a valid number')
 
-    if cart['items'] == 0:
+    cart['items'][product_key] = current_qty - remove_qty
+    cart['item_count'] -= remove_qty
+    cart['total_price'] -= product['price'] * remove_qty
+
+    if cart['items'][product_key] == 0:
         del cart['items'][product_key]
-        print(f'Product removed!')
-    else:
-        print(f'Removed 1x {product['name']} from the cart! {cart['items'][product_key]} left')
 
+    cart_update()
 
 def main():
 
