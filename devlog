@@ -32,4 +32,7 @@ DAY 4 PROGRESS (20.06.2026):
 
 DAY 5 PROGRESS (21.06.2026):
 - Split add_to_cart() into add_to_cart(), cart_update() and action_loop()
-- Progressed on item_removal(), stopped early due to mental fog
+- Added dynamic list and choices to item_removal(), stopped early due to mental fog
+
+DAY 6 PROGRESS (21.06.2026):
+- Finished working on and implementing item_removal()
