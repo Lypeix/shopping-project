@@ -52,4 +52,4 @@ DAY 7 PROGRESS (26.06.2026):
 - Removed add_to_cart() from main()
 - Added tax calculation
 - Updated update_cart to feature new tax calculation mechanic
-- Added functional checkout logic for option 3 of action_loop()
+- Added functional checkout logic featuring tax for option 3 of action_loop()
