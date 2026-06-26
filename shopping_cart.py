@@ -57,10 +57,13 @@ cart = {
     'total_price': 0
 }
 
+TAX_RATE = 0.23
+
 state = {
     'user': user_account,
     'products': products,
-    'cart': cart
+    'cart': cart,
+    'tax': TAX_RATE
 }
 
 
@@ -131,7 +134,18 @@ def add_to_cart(state):
     cart_update(state)
         
 
+def calculate_tax(state):
+    subtotal = state['cart']['total_price']
+    tax_amount = subtotal * state['tax']
+    total = subtotal + tax_amount
+
+    return subtotal, tax_amount, total
+
+
+
 def cart_update(state):
+
+    subtotal, tax_amount, total = calculate_tax(state)
 
     item_display = [f"x{qty} {state['products'][key]['name']}" for key, qty in state['cart']['items'].items()]
         
@@ -140,15 +154,16 @@ def cart_update(state):
     print(f"Item count: {state['cart']['item_count']}") 
 
     print('Individual prices:')
-    subtotal_sum = 0
+    
     for key, qty in state['cart']['items'].items():
         product = state['products'][key]
-        subtotal = qty * product['price']
-        subtotal_sum += subtotal
-        print(f"{product['name']} = {subtotal} {state['user']['currency_display']}\n============")
-     
-    print(f"Total price: {state['cart']['total_price']} {state['user']['currency_display']}\n============")
+        item_subtotal = qty * product['price']
+        
+        print(f"{product['name']} = {item_subtotal} {state['user']['currency_display']}\n============")
 
+    print(f"Subtotal: {round(subtotal, 2)} {state['user']['currency_display']}\n============")
+    print(f"Tax: {round(tax_amount, 2)} {state['user']['currency_display']}\n============")
+    print(f"Total: {round(total, 2)} {state['user']['currency_display']}\n============")
 
 def item_removal(state): 
     """Let's user remove items froms the cart"""
@@ -199,7 +214,6 @@ def item_removal(state):
 
     cart_update(state)
 
-
 def action_loop(state):
 
     while True:
@@ -230,7 +244,7 @@ def action_loop(state):
 
 def main(state):
     action_loop(state)
-
+    
 
 if __name__ == "__main__":
     main(state)
