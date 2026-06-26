@@ -203,7 +203,7 @@ def item_removal(state):
 def action_loop(state):
 
     while True:
-        answer = user_choice('What would you like to do now?'
+        answer = user_choice('What would you like to do?'
                             '\n1. Add items to the cart'
                             '\n2. Remove items from the cart'
                             '\n3. Purchase options' # UNFINISHED
@@ -229,8 +229,9 @@ def action_loop(state):
 
 
 def main(state):
-    add_to_cart(state)
     action_loop(state)
+    add_to_cart(state)
+
 
 if __name__ == "__main__":
     main(state)
