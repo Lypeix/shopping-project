@@ -234,8 +234,14 @@ def action_loop(state):
             item_removal(state)
         
         elif answer == '3':
-            state['user']['balance'] -= state['cart']['total_price']
+            subtotal, tax_amount, total = calculate_tax(state)
+            if state['user']['balance'] < total:
+                print("You do not have enough funds to make this purchase")
+                return
+
+            state['user']['balance'] -= total
             print('Your purchase has been finalized! Thank you for shopping')
+            print(f"Your balance: {state['user']['balance']}")
 
         elif answer == '4':
             print('Thank you for shopping!')            
