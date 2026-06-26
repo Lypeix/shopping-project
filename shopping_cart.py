@@ -26,6 +26,8 @@ def initialization():
                 ["pln", "usd", "eur", "yen"]
                 )
 
+
+
     user_account = {
     'name': user_name,
     'currency': user_currency,
@@ -55,29 +57,35 @@ cart = {
     'total_price': 0
 }
 
+state = {
+    'user': user_account,
+    'products': products,
+    'cart': cart
+}
+
 
 # CART FUNCTIONS
 
-def display_catalog():
+def display_catalog(state):
     """Displays catalog"""
     prompt_lines = ['Choose a product by typing in corresponding number: ']
 
-    product_keys = list(products.keys()) # ['cola', 'mango', 'manga', etc.]
+    product_keys = list(state['products'].keys()) # ['cola', 'mango', 'manga', etc.]
 
     for idx, key in enumerate(product_keys, start=1):
-        product = products[key]
+        product = state['products'][key]
         
         prompt_lines.append(f"{idx}. {product['name']} - {product['price']} {product['currency']}"
                             f" - Stock: {product['stock']} units") 
         
     prompt_lines.append("> ")
 
-    return '\n'.join(prompt_lines), product_keys
+    return "\n".join(prompt_lines), product_keys
 
 
-def quantity_get(product_key):
+def quantity_get(product_key, state):
     """Let's user choose the amount of product units he wants to get, eg. x8 cola"""
-    product = products[product_key]
+    product = state['products'][product_key]
     max_qty = product['stock']
 
     while True:
@@ -98,73 +106,73 @@ def quantity_get(product_key):
 
 
 
-def add_to_cart():
+def add_to_cart(state):
     """Lets user pick products"""
    
 
-    prompt, product_keys = display_catalog()
+    prompt, product_keys = display_catalog(state)
 
     valid_choices = [str(i) for i in range(1, len(product_keys) + 1)]
 
     choice_num = user_choice(prompt, valid_choices)
 
     product_key = product_keys[int(choice_num) - 1] # converts choice string to integer and subtracts 1 so that guy's choice reflects index
-    chosen_product = products[product_key]
+    chosen_product = state['products'][product_key]
         
-    qty = quantity_get(product_key)
+    qty = quantity_get(product_key, state)
 
-    cart['items'][product_key] = cart['items'].get(product_key, 0) + qty
-    cart['item_count'] += qty
-    cart['total_price'] += chosen_product['price'] * qty
+    state['cart']['items'][product_key] = state['cart']['items'].get(product_key, 0) + qty
+    state['cart']['item_count'] += qty
+    state['cart']['total_price'] += chosen_product['price'] * qty
     chosen_product['stock'] -= qty
         
     print(f"You have selected {chosen_product['name']} for {chosen_product['price']} {chosen_product['currency']} ")
 
-    cart_update()
+    cart_update(state)
         
 
-def cart_update():
+def cart_update(state):
 
-    item_display = [f"x{qty} {products[key]['name']}" for key, qty in cart['items'].items()]
+    item_display = [f"x{qty} {state['products'][key]['name']}" for key, qty in state['cart']['items'].items()]
         
     print(f'\n-=-!CART STATUS!-=-')
     print(f"Items: {', '.join(item_display)}")
-    print(f"Item count: {cart['item_count']}") 
+    print(f"Item count: {state['cart']['item_count']}") 
 
     print('Individual prices:')
     subtotal_sum = 0
-    for key, qty in cart['items'].items():
-        product = products[key]
+    for key, qty in state['cart']['items'].items():
+        product = state['products'][key]
         subtotal = qty * product['price']
         subtotal_sum += subtotal
-        print(f"{product['name']} = {subtotal} {user_account['currency_display']}")
+        print(f"{product['name']} = {subtotal} {state['user']['currency_display']}\n============")
      
-    print(f"Total price: {cart['total_price']} {user_account['currency_display']}")
+    print(f"Total price: {state['cart']['total_price']} {state['user']['currency_display']}\n============")
 
 
-def item_removal(): 
+def item_removal(state): 
     """Let's user remove items froms the cart"""
 
-    if not cart['items']:
+    if not state['cart']['items']:
         print('The cart is empty!')
         return
 
-    cart_items = list(cart['items'].items())
+    cart_items = list(state['cart']['items'].items())
         
     prompt_lines = ['Which product would you like to remove?']
     
     for idx, (key, qty) in enumerate(cart_items, start=1):
-        product = products[key]
+        product = state['products'][key]
         prompt_lines.append(f"{idx}. x{qty} {product['name']} - {product['price']} {product['currency']}")
     prompt_lines.append("> ")
     prompt = "\n".join(prompt_lines)
 
-    valid_choices = [str(i) for i in range(1, len(cart['items']) + 1)]
+    valid_choices = [str(i) for i in range(1, len(state['cart']['items']) + 1)]
 
     choice_num = user_choice(prompt, valid_choices)
 
     product_key, current_qty = cart_items[int(choice_num) - 1]
-    product = products[product_key]
+    product = state['products'][product_key]
 
     while True:
         try:
@@ -181,18 +189,18 @@ def item_removal():
         except ValueError:
             print(f'Please enter a valid number')
 
-    cart['items'][product_key] -= remove_qty
-    cart['item_count'] -= remove_qty
-    cart['total_price'] -= product['price'] * remove_qty
+    state['cart']['items'][product_key] -= remove_qty
+    state['cart']['item_count'] -= remove_qty
+    state['cart']['total_price'] -= product['price'] * remove_qty
     product['stock'] += remove_qty
 
-    if cart['items'][product_key] == 0:
-        del cart['items'][product_key]
+    if state['cart']['items'][product_key] == 0:
+        del state['cart']['items'][product_key]
 
-    cart_update()
+    cart_update(state)
 
 
-def action_loop():
+def action_loop(state):
 
     while True:
         answer = user_choice('What would you like to do now?'
@@ -206,13 +214,13 @@ def action_loop():
 
 
         if answer == '1':
-            add_to_cart()
+            add_to_cart(state)
 
         elif answer == '2':
-            item_removal()
+            item_removal(state)
         
         elif answer == '3':
-            user_account['balance'] -= cart['total_price']
+            state['user']['balance'] -= state['cart']['total_price']
             print('Your purchase has been finalized! Thank you for shopping')
 
         elif answer == '4':
@@ -220,9 +228,9 @@ def action_loop():
             break
 
 
-def main():
-    add_to_cart()
-    action_loop()
+def main(state):
+    add_to_cart(state)
+    action_loop(state)
 
 if __name__ == "__main__":
-    main()
+    main(state)
