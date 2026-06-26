@@ -49,4 +49,4 @@ DAY 7 PROGRESS (26.06.2026):
 - Assigned every dict/state to singular state
 - Updated every function to include state as parameter
 - Updated every dict call to call from state
-- Moved action_loop() above add_to_cart() in main()
+- Removed add_to_cart() from main()
