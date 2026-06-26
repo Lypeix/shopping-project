@@ -230,7 +230,6 @@ def action_loop(state):
 
 def main(state):
     action_loop(state)
-    add_to_cart(state)
 
 
 if __name__ == "__main__":
