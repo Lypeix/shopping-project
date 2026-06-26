@@ -7,7 +7,7 @@ ROADMAP:
 - [x] Add items to cart (with quantity check)
 - [x] Remove items from cart by line number
 - [x] Show cart contents with subtotals
-- [ ] Checkout with tax calculation
+- [x] Checkout with tax calculation
 - [ ] Discount logic 
 - [ ] Save/load cart with JSON
 - [ ] Multiple discount types
