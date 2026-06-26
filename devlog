@@ -42,5 +42,10 @@ DAY 6 PROGRESS (22.06.2026):
 - Removed the redundant parts: return at the end of add_to_cart(), display_catalog() at the start of main() 
 - Refactored control flow: Removed loop and action_loop() from within add_to_cart(), added action_loop() into main(), made action_loop() the only function featuring a loop
 
-=== 24-28 june ===
+=== 23-25 june ===
 Project will be paused in favor of doing exercises to soldify current concepts
+
+DAY 7 PROGRESS (26.06.2026):
+- Assigned every dict/state to singular state
+- Updated every function to include state as parameter
+- Updated every dict call to call from state
