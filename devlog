@@ -50,3 +50,5 @@ DAY 7 PROGRESS (26.06.2026):
 - Updated every function to include state as parameter
 - Updated every dict call to call from state
 - Removed add_to_cart() from main()
+- Added tax calculation
+- Updated update_cart to feature new tax calculation mechanic
