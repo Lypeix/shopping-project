@@ -184,7 +184,7 @@ def buy_subscription(state):
             state['user']['subscription'] = selected_subscription
             
             print(f"You are now a {selected_subscription['name']}!") 
-            print(f"Your balance: {state['user']['balance']}")
+            print(f"Your balance: {state['user']['balance']} {state['user']['currency_display']}")
 
     elif answer == "2":
         return
@@ -312,7 +312,7 @@ def action_loop(state):
 
             state['user']['balance'] -= total
             print('Your purchase has been finalized! Thank you for shopping')
-            print(f"Your balance: {state['user']['balance']}")
+            print(f"Your balance: {state['user']['balance']} {state['user']['currency_display']}")
 
         elif answer == '4':
             buy_subscription(state)
