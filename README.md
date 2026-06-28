@@ -8,8 +8,8 @@ ROADMAP:
 - [x] Remove items from cart by line number
 - [x] Show cart contents with subtotals
 - [x] Checkout with tax calculation
-- [ ] Discount logic 
+- [x] Discount logic 
 - [ ] Save/load cart with JSON
-- [ ] Multiple discount types
+- [x] Multiple discount types
 - [ ] User accounts (stretch goal)
 
