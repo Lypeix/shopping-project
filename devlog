@@ -61,3 +61,4 @@ DAY 8 PROGRESS (26.06.2026):
 - Added calculate_discount func
 - Deleted outdated calculations to include discounts
 - Fixed purchase option for action_loop 
+- Added working currency display for balance
