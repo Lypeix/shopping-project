@@ -14,7 +14,6 @@ def user_choice(prompt, valid_choices):
 def initialization():
     """Creates user's account data including username and currency"""
 
-
     user_name = input("Welcome! How would you like to name your account?\n> ")
 
     user_currency = user_choice(f"Hello {user_name}! Please pick your currency: "
@@ -26,12 +25,11 @@ def initialization():
                 ["pln", "usd", "eur", "yen"]
                 )
 
-
-
     user_account = {
     'name': user_name,
     'currency': user_currency,
     'currency_display': user_currency.upper(),
+    'subscription': None,
     'balance': 10000
     }
 
@@ -51,6 +49,12 @@ products = {
     'suit':{'name': 'Suit', 'price': 500, 'currency': user_account['currency_display'], 'stock': 3}
     }
 
+subscriptions = {
+    'vip': {'name': 'VIP', 'price': 500, 'currency': user_account['currency_display'], 'discount': 0.05},
+    'mega_vip': {'name': 'MEGA VIP', 'price': 1000, 'currency': user_account['currency_display'], 'discount': 0.10},
+    'ultra_vip': {'name': 'ULTRA VIP', 'price': 2000, 'currency': user_account['currency_display'], 'discount': 0.15}
+}
+
 cart = {
     'items': {},
     'item_count': 0,
@@ -62,6 +66,7 @@ TAX_RATE = 0.23
 state = {
     'user': user_account,
     'products': products,
+    'subscriptions': subscriptions,
     'cart': cart,
     'tax': TAX_RATE
 }
@@ -134,18 +139,81 @@ def add_to_cart(state):
     cart_update(state)
         
 
+def subscription_display(state):
+    
+    prompt_lines = ["Which subscription would you like to purchase? (LIFETIME!)"]
+
+    subscription_keys = list(state['subscriptions'].keys())
+    
+    for idx, key in enumerate(subscription_keys, start=1):
+        subscription = state['subscriptions'][key]
+
+        prompt_lines.append(f"{idx}. Subscription: {subscription['name']} - Price: {subscription['price']} {subscription['currency']} - Benefits: {subscription['discount']} discount for all products")
+    prompt_lines.append("> ")
+    
+    return "\n".join(prompt_lines), subscription_keys
+
+def buy_subscription(state):
+
+    answer = user_choice("Would you like to buy a subscription?"
+                        "\n1. Yes" 
+                        "\n2. No"
+                        "\n> ",
+                        ["1", "2"]
+                        )
+    
+    if answer == '1':
+
+        prompt, subscription_keys = subscription_display(state)
+
+        valid_choices = [str(i) for i in range(1, len(subscription_keys) + 1)]
+
+        choice_num = user_choice(prompt, valid_choices)
+
+        subscription_key = subscription_keys[int(choice_num) - 1]
+       
+        selected_subscription = state['subscriptions'][subscription_key]
+
+
+        if state['user']['balance'] < selected_subscription['price']:
+            print(f"Insufficient funds!")
+            return 
+
+        else:
+            state['user']['balance'] -= selected_subscription['price']
+            state['user']['subscription'] = selected_subscription
+            
+            print(f"You are now a {selected_subscription['name']}!") 
+            print(f"Your balance: {state['user']['balance']}")
+
+    elif answer == "2":
+        return
+
+    return 
+
+
+
 def calculate_tax(state):
-    subtotal = state['cart']['total_price']
-    tax_amount = subtotal * state['tax']
-    total = subtotal + tax_amount
+    original_price = state['cart']['total_price']
+    tax_amount = original_price * state['tax']
 
-    return subtotal, tax_amount, total
+    return original_price, tax_amount
 
+def calculate_discount(state):
+    original_price = state['cart']['total_price']
+    discount = state['user']['subscription']['discount'] 
+    discount_amount = original_price * discount
 
+    return discount_amount
 
 def cart_update(state):
 
-    subtotal, tax_amount, total = calculate_tax(state)
+    original_price, tax_amount = calculate_tax(state)
+    discount_amount = calculate_discount(state)
+
+    total = original_price - discount_amount + tax_amount 
+    state['cart']['total_price'] = total
+ 
 
     item_display = [f"x{qty} {state['products'][key]['name']}" for key, qty in state['cart']['items'].items()]
         
@@ -161,9 +229,11 @@ def cart_update(state):
         
         print(f"{product['name']} = {item_subtotal} {state['user']['currency_display']}\n============")
 
-    print(f"Subtotal: {round(subtotal, 2)} {state['user']['currency_display']}\n============")
+    print(f"Subtotal: {round(original_price, 2)} {state['user']['currency_display']}\n============")
+    print(f"Discount: {round(discount_amount, 2)} {state['user']['currency_display']}\n============")
     print(f"Tax: {round(tax_amount, 2)} {state['user']['currency_display']}\n============")
     print(f"Total: {round(total, 2)} {state['user']['currency_display']}\n============")
+
 
 def item_removal(state): 
     """Let's user remove items froms the cart"""
@@ -220,10 +290,11 @@ def action_loop(state):
         answer = user_choice('What would you like to do?'
                             '\n1. Add items to the cart'
                             '\n2. Remove items from the cart'
-                            '\n3. Purchase options' # UNFINISHED
-                            '\n4. Exit'
+                            '\n3. Purchase'
+                            '\n4. Get a discount' 
+                            '\n5. Exit'
                             '\n> ',
-                        ['1', '2', '3', '4']
+                        ['1', '2', '3', '4', '5']
                         )
 
 
@@ -234,7 +305,7 @@ def action_loop(state):
             item_removal(state)
         
         elif answer == '3':
-            subtotal, tax_amount, total = calculate_tax(state)
+            total = state['cart']['total_price']
             if state['user']['balance'] < total:
                 print("You do not have enough funds to make this purchase")
                 return
@@ -244,6 +315,9 @@ def action_loop(state):
             print(f"Your balance: {state['user']['balance']}")
 
         elif answer == '4':
+            buy_subscription(state)
+
+        elif answer == '5':
             print('Thank you for shopping!')            
             break
 
