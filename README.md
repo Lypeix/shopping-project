@@ -11,7 +11,7 @@ ROADMAP:
 - [x] Discount logic 
 - [x] Multiple discount types
 - [ ] Multi-file split with JSON
-- [ ] Add OOP
 - [ ] Add Monthly Subscriptions
+- [ ] Add OOP
 - [ ] User accounts (stretch goal)
 
