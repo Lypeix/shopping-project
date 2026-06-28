@@ -9,8 +9,8 @@ ROADMAP:
 - [x] Show cart contents with subtotals
 - [x] Checkout with tax calculation
 - [x] Discount logic 
-- [ ] Multi-file split with JSON
 - [x] Multiple discount types
+- [ ] Multi-file split with JSON
 - [ ] Add OOP
 - [ ] Add Monthly Subscriptions
 - [ ] User accounts (stretch goal)
