@@ -53,3 +53,11 @@ DAY 7 PROGRESS (26.06.2026):
 - Added tax calculation
 - Updated update_cart to feature new tax calculation mechanic
 - Added functional checkout logic featuring tax for option 3 of action_loop()
+
+DAY 8 PROGRESS (26.06.2026):
+- Added working subscriptions (one-time purchase for now)
+- Added multiple discount types based off subscription
+- Added subscriptions into the state and subscription status into the user state
+- Added calculate_discount func
+- Deleted outdated calculations to include discount
+- Fixed purchase option for action_loop 
