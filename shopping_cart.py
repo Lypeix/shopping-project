@@ -200,11 +200,14 @@ def calculate_tax(state):
     return original_price, tax_amount
 
 def calculate_discount(state):
+    if state['user']['subscription'] is None:
+        return 0
+
     original_price = state['cart']['total_price']
     discount = state['user']['subscription']['discount'] 
-    discount_amount = original_price * discount
+    
 
-    return discount_amount
+    return original_price * discount
 
 def cart_update(state):
 
@@ -212,8 +215,6 @@ def cart_update(state):
     discount_amount = calculate_discount(state)
 
     total = original_price - discount_amount + tax_amount 
-    state['cart']['total_price'] = total
- 
 
     item_display = [f"x{qty} {state['products'][key]['name']}" for key, qty in state['cart']['items'].items()]
         
@@ -313,6 +314,7 @@ def action_loop(state):
             state['user']['balance'] -= total
             print('Your purchase has been finalized! Thank you for shopping')
             print(f"Your balance: {state['user']['balance']} {state['user']['currency_display']}")
+            
 
         elif answer == '4':
             buy_subscription(state)
