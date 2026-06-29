@@ -67,3 +67,4 @@ DAY 9 PROGRESS (29.06.2026):
 - Designed multi-file split with AI help
 - Moved products dict into products.json and subscriptions dict into subscriptions.json
 - Moved user_choice into utils.py (reusable functions)
+- Added states + state creation and json logic to state.py
