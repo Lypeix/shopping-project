@@ -1,0 +1,7 @@
+{
+  "cola": {"name": "Cola", "price": 4, "stock": 84},
+  "mango": {"name": "Mango", "price": 8, "stock": 12},
+  "manga": {"name": "Manga", "price": 70, "stock": 41},
+  "meat": {"name": "Meat", "price": 40, "stock": 321},
+  "suit": {"name": "Suit", "price": 500, "stock": 3}
+}
