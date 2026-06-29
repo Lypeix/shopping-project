@@ -1,0 +1,5 @@
+{
+  "vip": {"name": "VIP", "price": 500, "discount": 0.05},
+  "mega_vip": {"name": "MEGA VIP", "price": 1000, "discount": 0.10},
+  "ultra_vip": {"name": "ULTRA VIP", "price": 2000, "discount": 0.15}
+}
