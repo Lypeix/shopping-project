@@ -160,7 +160,11 @@ def item_removal(state):
 
 def checkout(state):
         total = state['cart']['total_price']
-        if state['user']['balance'] < total:
+        if state['cart']['item_count'] == 0:
+            print("You have no products in your inventory!")
+            return
+        
+        elif state['user']['balance'] < total:
             print("You do not have enough funds to make this purchase")
             return
 
