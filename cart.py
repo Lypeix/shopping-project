@@ -1,4 +1,5 @@
-currency = state["user"]["currency_display"]
+from state import create_state
+from utils import user_choice
 
 
 def display_catalog(state):
@@ -8,9 +9,9 @@ def display_catalog(state):
     product_keys = list(state['products'].keys()) # ['cola', 'mango', 'manga', etc.]
 
     for idx, key in enumerate(product_keys, start=1):
-        product = state['products'][key]
+        product = state['products'][key] 
         
-        prompt_lines.append(f"{idx}. {product['name']} - {product['price']} {product['currency']}"
+        prompt_lines.append(f"{idx}. {product['name']} - {product['price']} {state["user"]["currency_display"]}"
                             f" - Stock: {product['stock']} units") 
         
     prompt_lines.append("> ")
@@ -61,7 +62,7 @@ def add_to_cart(state):
     state['cart']['total_price'] += chosen_product['price'] * qty
     chosen_product['stock'] -= qty
         
-    print(f"You have selected {chosen_product['name']} for {chosen_product['price']} {chosen_product['currency']} ")
+    print(f"You have selected {chosen_product['name']} for {chosen_product['price']} {state["user"]["currency_display"]} ")
 
     cart_update(state)
 
@@ -121,7 +122,7 @@ def item_removal(state):
     
     for idx, (key, qty) in enumerate(cart_items, start=1):
         product = state['products'][key]
-        prompt_lines.append(f"{idx}. x{qty} {product['name']} - {product['price']} {product['currency']}")
+        prompt_lines.append(f"{idx}. x{qty} {product['name']} - {product['price']} {state["user"]["currency_display"]}")
     prompt_lines.append("> ")
     prompt = "\n".join(prompt_lines)
 
