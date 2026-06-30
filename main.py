@@ -1,7 +1,7 @@
-from state.py import create_state
-from utils.py import user_choice
-from cart.py import add_to_cart, item_removal, checkout
-from subscriptions.py import buy_subscription
+from state import create_state
+from utils import user_choice
+from cart import add_to_cart, item_removal, checkout
+from subscriptions import buy_subscription
 
 
 def action_loop(state):
