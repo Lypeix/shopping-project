@@ -1,3 +1,5 @@
+from utils import user_choice
+
 def subscription_display(state):
     
     prompt_lines = ["Which subscription would you like to purchase? (LIFETIME!)"]
@@ -7,7 +9,7 @@ def subscription_display(state):
     for idx, key in enumerate(subscription_keys, start=1):
         subscription = state['subscriptions'][key]
 
-        prompt_lines.append(f"{idx}. Subscription: {subscription['name']} - Price: {subscription['price']} {subscription['currency']} - Benefits: {subscription['discount']} discount for all products")
+        prompt_lines.append(f"{idx}. Subscription: {subscription['name']} - Price: {subscription['price']} {state["user"]["currency_display"]} - Benefits: {subscription['discount']} discount for all products")
     prompt_lines.append("> ")
     
     return "\n".join(prompt_lines), subscription_keys
