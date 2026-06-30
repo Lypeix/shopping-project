@@ -68,3 +68,7 @@ DAY 9 PROGRESS (29.06.2026):
 - Moved products dict into products.json and subscriptions dict into subscriptions.json
 - Moved user_choice into utils.py (reusable functions)
 - Added states + state creation and json logic to state.py
+
+DAY 10 PROGRESS (30.06.2026):
+- Successfuly finished splitting program into multiple files
+- The program is now to be activated through main.py
