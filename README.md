@@ -10,7 +10,7 @@ ROADMAP:
 - [x] Checkout with tax calculation
 - [x] Discount logic 
 - [x] Multiple discount types
-- [ ] Multi-file split with JSON
+- [x] Multi-file split with JSON
 - [ ] Add Monthly Subscriptions
 - [ ] Add OOP
 - [ ] User accounts (stretch goal)
