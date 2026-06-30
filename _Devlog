@@ -72,3 +72,4 @@ DAY 9 PROGRESS (29.06.2026):
 DAY 10 PROGRESS (30.06.2026):
 - Successfuly finished splitting program into multiple files
 - The program is now to be activated through main.py
+- Updated UI for when the user tries to finalize purchase with empty cart
