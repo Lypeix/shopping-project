@@ -1,6 +1,6 @@
 Shopping project!
 
-This program is supposed to emualate a basic shopping sequence. 
+This CLI is supposed to emualate a basic shopping sequence. 
 
 Features:
 - 5 python files housing various functions + 2 json files featuring data dictionaries
