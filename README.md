@@ -15,6 +15,22 @@ Deferred features:
 - Monthly subscriptions: Moved for a proper backend project in a few months due to data/time tracking paired with consistent user state
 - User accounts: Skipped in favor of starting another, more advanced program
 
+State model:
+
+def create_state():
+    user_account = initialization()
+    products = load_json("products.json")
+    subscriptions = load_json("subscriptions.json")
+    cart = create_cart()
+
+    return {
+        "user": user_account,
+        "products": products,
+        "subscriptions": subscriptions,
+        "cart": cart,
+        "tax": TAX_RATE
+    }
+
 ROADMAP:
 - [x] Display product catalog with numbers, prices, and stock 
 - [x] Add items to cart (with quantity check)
