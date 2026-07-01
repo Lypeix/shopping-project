@@ -6,7 +6,7 @@ def display_catalog(state):
     """Displays catalog"""
     prompt_lines = ['Choose a product by typing in corresponding number: ']
 
-    product_keys = list(state['products'].keys()) # ['cola', 'mango', 'manga', etc.]
+    product_keys = list(state['products'].keys())
 
     for idx, key in enumerate(product_keys, start=1):
         product = state['products'][key] 
